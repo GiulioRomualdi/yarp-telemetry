@@ -20,6 +20,11 @@ target_link_libraries(bufferManager_test PRIVATE Catch2::Catch2
                                                  YARP::YARP_os
                                                  YARP::YARP_init)
 
+add_executable(treeNode_test TreeNodeTest.cpp)
+target_link_libraries(treeNode_test PRIVATE Catch2::Catch2
+                                            YARP::YARP_telemetry)
+
+
 include(CTest)
 include(Catch)
 function(yarp_catch_discover_tests _target)
@@ -36,3 +41,4 @@ endfunction()
 
 
 yarp_catch_discover_tests(bufferManager_test)
+yarp_catch_discover_tests(treeNode_test)
