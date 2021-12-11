@@ -6,7 +6,7 @@
 
 include(InstallBasicPackageFiles)
 
-macro(YARP_INSTALL_BASIC_PACKAGE_FILES _export)
+macro(TELEMETRY_INSTALL_BASIC_PACKAGE_FILES _export)
   set(_options )
   set(_oneValueArgs FIRST_TARGET
                     STATIC_CONFIG_TEMPLATE
@@ -65,7 +65,7 @@ macro(YARP_INSTALL_BASIC_PACKAGE_FILES _export)
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO
                               NO_SET_AND_CHECK_MACRO
                               COMPONENT ${_YIBPF_COMPONENT}
-                              NAMESPACE YARP::
+                              NAMESPACE telemetry::
                               UPPERCASE_FILENAMES
                               ${_YIBPF_UNPARSED_ARGUMENTS})
 endmacro()

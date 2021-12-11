@@ -6,12 +6,12 @@
  * BSD-3-Clause license. See the accompanying LICENSE file for details.
  */
 
-#ifndef YARP_TELEMETRY_RECORD_H
-#define YARP_TELEMETRY_RECORD_H
+#ifndef TELEMETRY_RECORD_H
+#define TELEMETRY_RECORD_H
 
 #include <matioCpp/Span.h>
 
-namespace yarp::telemetry::experimental {
+namespace telemetry {
 
 /**
  * @brief A structure to represent a Record.
@@ -57,6 +57,6 @@ struct Record
 };
 
 
-} // yarp::telemetry
+} // telemetry
 
 #endif

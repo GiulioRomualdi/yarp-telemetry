@@ -15,14 +15,14 @@ endif()
 target_link_libraries(bufferManager_test PRIVATE Catch2::Catch2
                                                  matioCpp::matioCpp
                                                  Boost::boost
-                                                 YARP::YARP_telemetry
+                                                 telemetry::telemetry
                                                  YARP::YARP_conf
                                                  YARP::YARP_os
                                                  YARP::YARP_init)
 
 add_executable(treeNode_test TreeNodeTest.cpp)
 target_link_libraries(treeNode_test PRIVATE Catch2::Catch2
-                                            YARP::YARP_telemetry)
+                                            telemetry::telemetry)
 
 
 include(CTest)

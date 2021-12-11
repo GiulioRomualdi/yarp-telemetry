@@ -9,7 +9,7 @@
 
 #include <yarp/os/Time.h>
 #include <yarp/os/Network.h>
-#include <yarp/telemetry/experimental/Buffer.h>
+#include <telemetry/Buffer.h>
 
 #include <iostream>
 #include <functional>
@@ -20,14 +20,14 @@
 
 using namespace std;
 using namespace yarp::os;
-using namespace yarp::telemetry::experimental;
+using namespace telemetry;
 
  int main()
  {
     Network yarp;
 
     std::cout<<"XXXXXXXX TELEMETRY BUFFER OF INT XXXXXXXX"<<std::endl;
-    yarp::telemetry::experimental::Buffer<int32_t> cb_i(3);
+    telemetry::Buffer<int32_t> cb_i(3);
 
     cout<<"The space available is: "<<cb_i.getBufferFreeSpace()<<std::endl;
     // Insert threee elements into the buffer.
@@ -59,7 +59,7 @@ using namespace yarp::telemetry::experimental;
 
     std::cout<<"XXXXXXXX TELEMETRY BUFFER OF DOUBLE XXXXXXXX"<<std::endl;
 
-    yarp::telemetry::experimental::Buffer<double> cb_d(3);
+    telemetry::Buffer<double> cb_d(3);
 
     cout<<"The space available is: "<<cb_d.getBufferFreeSpace()<<std::endl;
     // Insert threee elements into the buffer.
@@ -90,7 +90,7 @@ using namespace yarp::telemetry::experimental;
 
     std::cout<<"XXXXXXXX TELEMETRY BUFFER OF VECTOR OF DOUBLE XXXXXXXX"<<std::endl;
 
-    yarp::telemetry::experimental::Buffer<double> cb_v(3);
+    telemetry::Buffer<double> cb_v(3);
 
     cout<<"The space available is: "<<cb_v.getBufferFreeSpace()<<std::endl;
     // Insert threee elements into the buffer.

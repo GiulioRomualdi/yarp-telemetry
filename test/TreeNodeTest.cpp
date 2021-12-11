@@ -9,8 +9,7 @@
 // This has to be probably removed when we will have multiple tests
 #define CATCH_CONFIG_MAIN
 
-#include <yarp/telemetry/experimental/TreeNode.h>
-#include <yarp/telemetry/experimental/BufferManager.h>
+#include <telemetry/TreeNode.h>
 
 #include <catch2/catch.hpp>
 #include <string>
@@ -25,7 +24,7 @@ TEST_CASE("Create Tree from vector of strings")
                                          "A::B::F::element4"};
 
 
-    auto tree = yarp::telemetry::experimental::TreeNode<double>::buildTreeFromVectorOfString(elements);
+    auto tree = telemetry::TreeNode<double>::buildTreeFromVectorOfString(elements);
     REQUIRE(tree);
     std::cout << tree->toString() << std::endl;
 }

@@ -6,13 +6,13 @@
  * BSD-3-Clause license. See the accompanying LICENSE file for details.
  */
 
-#ifndef YARP_TELEMETRY_BUFFER_MANAGER_H
-#define YARP_TELEMETRY_BUFFER_MANAGER_H
+#ifndef TELEMETRY_BUFFER_MANAGER_H
+#define TELEMETRY_BUFFER_MANAGER_H
 
 #include <matioCpp/Struct.h>
-#include <yarp/telemetry/experimental/TreeNode.h>
-#include <yarp/telemetry/experimental/Buffer.h>
-#include <yarp/telemetry/experimental/BufferConfig.h>
+#include <telemetry/TreeNode.h>
+#include <telemetry/Buffer.h>
+#include <telemetry/BufferConfig.h>
 
 #include <matioCpp/matioCpp.h>
 
@@ -34,22 +34,22 @@
 #else
 #  if __has_include(<filesystem>)
 #    include <filesystem>
-     namespace yarp_telemetry_fs = std::filesystem;
+     namespace telemetry_fs = std::filesystem;
 #  elif __has_include(<experimental/filesystem>)
 #    include <experimental/filesystem>
-     namespace yarp_telemetry_fs = std::experimental::filesystem;
+     namespace telemetry_fs = std::experimental::filesystem;
 #  else
      static_assert(false, "Neither <filesystem> nor <experimental/filesystem> headers are present in the system, but they are required"); 
 #  endif
 #endif
 
 
-namespace yarp::telemetry::experimental {
+namespace telemetry {
 
 
 /**
-* @brief Class that aggregates the yarp::telemetry::experimental::Buffer and some other
-* info(e.g. dimensions) used by the yarp::telemetry::experimental::BufferManager
+* @brief Class that aggregates the telemetry::Buffer and some other
+* info(e.g. dimensions) used by the telemetry::BufferManager
 *
 */
 template<class T>
@@ -88,7 +88,7 @@ public:
 
     /**
      * @brief Construct a new BufferManager object, configuring it via
-     * the yarp::telemetry::experimental::BufferConfig.
+     * the telemetry::BufferConfig.
      *
      * @param[in] _bufferConfig The struct containing the configuration for the BufferManager.
      */
@@ -154,7 +154,7 @@ public:
             ok = ok && enablePeriodicSave(_bufferConfig.save_period);
         }
         populateDescriptionCellArray();
-        if (!m_bufferConfig.path.empty() && !yarp_telemetry_fs::exists(m_bufferConfig.path)) {
+        if (!m_bufferConfig.path.empty() && !telemetry_fs::exists(m_bufferConfig.path)) {
             std::cout << m_bufferConfig.path << " does not exists." << std::endl;
             return false;
         }
@@ -305,8 +305,8 @@ public:
     /**
      * @brief Save the content of all the channels into a file.
      * If flush_all is set to false, it saves only the content of the channels that
-     * have a number of samples greater than the yarp::telemetry::experimental::BufferConfig::data_threshold.
-     * If yarp::telemetry::experimental::BufferConfig::data_threshold is greater than yarp::telemetry::experimental::BufferConfig::n_samples
+     * have a number of samples greater than the telemetry::BufferConfig::data_threshold.
+     * If telemetry::BufferConfig::data_threshold is greater than telemetry::BufferConfig::n_samples
      * this check is skipped.
      *
      * @param[in] flush_all Flag for forcing the save of whatever is contained in the channels.
@@ -521,6 +521,6 @@ private:
     matioCpp::CellArray m_description_cell_array;
 };
 
-} // yarp::telemetry::experimental
+} // telemetry
 
 #endif

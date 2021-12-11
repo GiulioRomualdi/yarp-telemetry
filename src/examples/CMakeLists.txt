@@ -40,29 +40,29 @@ target_link_libraries(circular_buffer_record_example Boost::boost
                                                      YARP::YARP_conf
                                                      YARP::YARP_os
                                                      YARP::YARP_init
-                                                     YARP::YARP_telemetry)
+                                                     telemetry::telemetry)
 target_link_libraries(telemetry_buffer_example YARP::YARP_conf
                                                YARP::YARP_os
                                                YARP::YARP_init
-                                               YARP::YARP_telemetry)
+                                               telemetry::telemetry)
 target_link_libraries(telemetry_buffer_manager_conf_file_example YARP::YARP_conf
                                                                  YARP::YARP_os
                                                                  YARP::YARP_init
-                                                                 YARP::YARP_telemetry)
+                                                                 telemetry::telemetry)
 target_link_libraries(telemetry_buffer_manager_example YARP::YARP_conf
                                                        YARP::YARP_os
                                                        YARP::YARP_init
-                                                       YARP::YARP_telemetry)
+                                                       telemetry::telemetry)
 target_link_libraries(telemetry_buffer_periodic_save YARP::YARP_conf
                                                        YARP::YARP_os
                                                        YARP::YARP_init
-                                                       YARP::YARP_telemetry)
+                                                       telemetry::telemetry)
 target_link_libraries(matio_vector_example PRIVATE matioCpp::matioCpp)
 target_link_libraries(matio_matrix_example PRIVATE matioCpp::matioCpp)
 target_link_libraries(matio_timeseries_example PRIVATE matioCpp::matioCpp)
 target_link_libraries(CB_to_matfile_example PRIVATE matioCpp::matioCpp 
                                                 Boost::boost 
-                                                YARP::YARP_telemetry
+                                                telemetry::telemetry
                                                 YARP::YARP_conf
                                                 YARP::YARP_os
                                                 YARP::YARP_init ${CMAKE_THREAD_LIBS_INIT})

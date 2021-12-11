@@ -14,14 +14,14 @@
 #include <matioCpp/matioCpp.h>
 #include <mutex>
 
-#include <yarp/telemetry/experimental/Buffer.h>
+#include <telemetry/Buffer.h>
 #include <yarp/os/Time.h>
 #include <yarp/os/Network.h>
 
 #include <memory>
 
 using namespace std;
-using namespace yarp::telemetry::experimental;
+using namespace telemetry;
 using namespace yarp::os;
 
 std::mutex lock_mut;

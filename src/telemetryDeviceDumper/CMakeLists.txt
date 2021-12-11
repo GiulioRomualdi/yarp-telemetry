@@ -25,10 +25,10 @@ if(ENABLE_telemetryDeviceDumper)
 
   target_link_libraries(yarp_telemetryDeviceDumper PRIVATE YARP::YARP_os
                                                            YARP::YARP_dev
-                                                           YARP::YARP_telemetry)
+                                                           telemetry::telemetry)
   list(APPEND YARP_${YARP_PLUGIN_MASTER}_PRIVATE_DEPS YARP_os
                                                       YARP_dev
-                                                      YARP_telemetry)
+                                                      telemetry)
 
   yarp_install(TARGETS yarp_telemetryDeviceDumper
                EXPORT YARP_${YARP_PLUGIN_MASTER}

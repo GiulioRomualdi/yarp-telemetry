@@ -24,7 +24,7 @@
 #include <yarp/dev/PolyDriver.h>
 #include <yarp/os/LogStream.h>
 #include <yarp/os/PeriodicThread.h>
-#include <yarp/telemetry/experimental/BufferManager.h>
+#include <telemetry/BufferManager.h>
 
 #include <unordered_map>
 #include <string>
@@ -117,8 +117,8 @@ private:
                         odometryData;
     std::vector<std::string> jointNames;
     TelemetryDeviceDumperSettings settings;
-    yarp::telemetry::experimental::BufferConfig m_bufferConfig;
-    yarp::telemetry::experimental::BufferManager<double> bufferManager;
+    ::telemetry::BufferConfig m_bufferConfig;
+    ::telemetry::BufferManager<double> bufferManager;
 
 
 };

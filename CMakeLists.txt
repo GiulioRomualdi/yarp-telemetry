@@ -5,8 +5,8 @@
 # BSD-3-Clause license. See the accompanying LICENSE file for details.
 
 cmake_minimum_required(VERSION 3.12)
-project(yarp-telemetry LANGUAGES C CXX
-                       VERSION 0.2.0)
+project(telemetry LANGUAGES C CXX VERSION 0.2.0)
+option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
 
 include(GNUInstallDirs)
 include(FeatureSummary)
@@ -58,11 +58,7 @@ endif()
 
 
 set(YARP_FORCE_DYNAMIC_PLUGINS TRUE CACHE INTERNAL "${PROJECT_NAME} is always built with dynamic plugins")
-find_package(YARP ${YARP_REQUIRED_VERSION} COMPONENTS conf OPTIONAL_COMPONENTS os dev REQUIRED)
-# Use the same build options as YARP
-set(BUILD_SHARED_LIBS ${YARP_IS_SHARED_LIBRARY})
-set(CMAKE_C_FLAGS ${YARP_C_FLAGS})
-set(CMAKE_CXX_FLAGS ${YARP_CXX_FLAGS})
+find_package(YARP ${YARP_REQUIRED_VERSION} COMPONENTS conf OPTIONAL_COMPONENTS os dev QUIET)
 
 
 #### INSERT find_package(MATIO) and other libraries here
@@ -70,9 +66,9 @@ find_package(matioCpp 0.1.1 REQUIRED)
 find_package(Boost REQUIRED)
 find_package(Threads REQUIRED)
 
-option(YARP_TELEMETRY_USES_SYSTEM_nlohmann_json OFF)
+option(TELEMETRY_USES_SYSTEM_nlohmann_json OFF)
 # 3.9.2 is unreleased, this option is not working until that version is not released
-if(YARP_TELEMETRY_USES_SYSTEM_nlohmann_json)
+if(TELEMETRY_USES_SYSTEM_nlohmann_json)
   find_package(nlohmann_json 3.10.0 REQUIRED)
 else()
   include(FetchContent)
@@ -143,7 +139,7 @@ endif()
 
 if(BUILD_TESTING AND YARP_os_FOUND)
 
-  if(YARP_TELEMETRY_USES_SYSTEM_Catch2)
+  if(TELEMETRY_USES_SYSTEM_Catch2)
     find_package(Catch2 2.13.1 REQUIRED)
   else()
     include(FetchContent)

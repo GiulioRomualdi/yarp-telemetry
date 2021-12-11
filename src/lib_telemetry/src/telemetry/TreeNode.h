@@ -6,8 +6,8 @@
  * BSD-3-Clause license. See the accompanying LICENSE file for details.
  */
 
-#ifndef YARP_TELEMETRY_TREE_NODE_H
-#define YARP_TELEMETRY_TREE_NODE_H
+#ifndef TELEMETRY_TREE_NODE_H
+#define TELEMETRY_TREE_NODE_H
 
 #include <unordered_map>
 #include <memory>
@@ -17,10 +17,10 @@
 #include <deque>
 #include <assert.h>
 
-namespace yarp::telemetry::experimental {
+namespace telemetry {
 
 /**
- * @brief A class to represent the buffer of yarp::telemetry::experimental::Record<T>.
+ * @brief A class to represent the buffer of telemetry::Record<T>.
  *
  */
 template<class T>
@@ -185,6 +185,6 @@ private:
 template<class T>
 std::string TreeNode<T>::m_stringSeparator = "::";
 
-} // yarp::telemetry::experimental
+} // telemetry
 
 #endif

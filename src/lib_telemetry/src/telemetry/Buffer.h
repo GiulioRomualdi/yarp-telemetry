@@ -6,19 +6,19 @@
  * BSD-3-Clause license. See the accompanying LICENSE file for details.
  */
 
-#ifndef YARP_TELEMETRY_BUFFER_H
-#define YARP_TELEMETRY_BUFFER_H
+#ifndef TELEMETRY_BUFFER_H
+#define TELEMETRY_BUFFER_H
 
-#include <yarp/telemetry/experimental/Record.h>
+#include <telemetry/Record.h>
 #include <boost/circular_buffer.hpp>
 #include <cstring>
 #include <vector>
 #include <memory>
 
-namespace yarp::telemetry::experimental {
+namespace telemetry {
 
 /**
- * @brief A class to represent the buffer of yarp::telemetry::experimental::Record<T>.
+ * @brief A class to represent the buffer of telemetry::Record<T>.
  *
  */
 template<class T>
@@ -220,6 +220,6 @@ private:
 };
 
 
-} // yarp::telemetry::experimental
+} // telemetry
 
 #endif

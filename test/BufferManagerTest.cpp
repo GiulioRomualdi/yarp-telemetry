@@ -8,7 +8,8 @@
 // This has to be probably removed when we will have multiple tests
 #define CATCH_CONFIG_MAIN
 
-#include <yarp/telemetry/experimental/BufferManager.h>
+#include <telemetry/BufferManager.h>
+
 #include <yarp/os/Network.h>
 #include <yarp/os/Time.h>
 #include <catch2/catch.hpp>
@@ -24,19 +25,19 @@ TEST_CASE("Buffer Manager Test")
     SECTION("Test scalar")
     {
         // The inputs to the API are defined in the BufferConfig structure
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
+        telemetry::BufferConfig bufferConfig;
 
         // We use the default config, setting only the number of samples (no auto/periodic saving)
         bufferConfig.n_samples = n_samples;
 
-        yarp::telemetry::experimental::BufferManager<int32_t> bm(bufferConfig);
+        telemetry::BufferManager<int32_t> bm(bufferConfig);
         bm.setFileName("buffer_manager_test");
         auto ok = bm.setNowFunction(now);
         // Check that the now function has been set correctly.
         REQUIRE(ok);
 
-        yarp::telemetry::experimental::ChannelInfo var_one{ "one", {1,1} };
-        yarp::telemetry::experimental::ChannelInfo var_two{ "two", {1,1} };
+        telemetry::ChannelInfo var_one{ "one", {1,1} };
+        telemetry::ChannelInfo var_two{ "two", {1,1} };
 
         ok = bm.addChannel(var_one);
         // Check that the channel one has been correctly added
@@ -58,17 +59,17 @@ TEST_CASE("Buffer Manager Test")
     }
     SECTION("Test matrix") {
         // The inputs to the API are defined in the BufferConfig structure
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
+        telemetry::BufferConfig bufferConfig;
 
         // We use the default config, setting only the number of samples (no auto/periodic saving)
         bufferConfig.n_samples = n_samples;
         // now we test our API with the auto_save option enabled.
         bufferConfig.auto_save = true;
 
-        yarp::telemetry::experimental::BufferManager<int32_t> bm_m(bufferConfig);
+        telemetry::BufferManager<int32_t> bm_m(bufferConfig);
         bm_m.setFileName("buffer_manager_test_matrix");
 
-        std::vector<yarp::telemetry::experimental::ChannelInfo> vars{ { "one",{2,3} },
+        std::vector<telemetry::ChannelInfo> vars{ { "one",{2,3} },
                                                         { "two",{3,2} } };
 
         REQUIRE(bm_m.addChannels(vars));
@@ -84,7 +85,7 @@ TEST_CASE("Buffer Manager Test")
 
     SECTION("Test vector") {
         // The inputs to the API are defined in the BufferConfig structure
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
+        telemetry::BufferConfig bufferConfig;
 
         // We use the default config, setting only the number of samples (no auto/periodic saving)
         bufferConfig.n_samples = n_samples;
@@ -92,7 +93,7 @@ TEST_CASE("Buffer Manager Test")
         bufferConfig.filename = "buffer_manager_test_vector";
         bufferConfig.auto_save = true;
 
-        yarp::telemetry::experimental::BufferManager<double> bm_v;
+        telemetry::BufferManager<double> bm_v;
         REQUIRE(bm_v.configure(bufferConfig));
 
         for (int i = 0; i < 10; i++) {
@@ -106,18 +107,18 @@ TEST_CASE("Buffer Manager Test")
 
     SECTION("Test periodic save") {
 
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
+        telemetry::BufferConfig bufferConfig;
 
         // we configure our API to use our periodic saving option
         bufferConfig.n_samples = 20;
         bufferConfig.data_threshold = 10;
         bufferConfig.auto_save = true;
 
-        yarp::telemetry::experimental::BufferManager<int32_t> bm;
+        telemetry::BufferManager<int32_t> bm;
         REQUIRE(bm.configure(bufferConfig));
         bm.setFileName("buffer_manager_test_periodic");
-        yarp::telemetry::experimental::ChannelInfo var_one{ "one", {1,1} };
-        yarp::telemetry::experimental::ChannelInfo var_two{ "two", {1,1} };
+        telemetry::ChannelInfo var_one{ "one", {1,1} };
+        telemetry::ChannelInfo var_two{ "two", {1,1} };
 
         REQUIRE(bm.addChannel(var_one));
         REQUIRE(bm.addChannel(var_two));
@@ -133,8 +134,8 @@ TEST_CASE("Buffer Manager Test")
     }
 
     SECTION("Test configuration from/to file") {
-        yarp::telemetry::experimental::BufferManager<int32_t> bm;
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
+        telemetry::BufferManager<int32_t> bm;
+        telemetry::BufferConfig bufferConfig;
         bufferConfig.description_list = { "Be", "Or not to be" };
         bufferConfig.channels = { {"one",{1,1}}, {"two",{1,1}} };
         bufferConfig.filename = "buffer_manager_test_conf_file";
@@ -178,11 +179,11 @@ TEST_CASE("Buffer Manager Test")
     }
 
     SECTION("Test resize") {
-        yarp::telemetry::experimental::BufferManager<int32_t> bm;
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
+        telemetry::BufferManager<int32_t> bm;
+        telemetry::BufferConfig bufferConfig;
 
-        yarp::telemetry::experimental::ChannelInfo var_one{ "one", {1,1} };
-        yarp::telemetry::experimental::ChannelInfo var_two{ "two", {1,1} };
+        telemetry::ChannelInfo var_one{ "one", {1,1} };
+        telemetry::ChannelInfo var_two{ "two", {1,1} };
         // First add channels that will be handling empty buffers
         REQUIRE(bm.addChannel(var_one));
         REQUIRE(bm.addChannel(var_two));
@@ -210,11 +211,11 @@ TEST_CASE("Buffer Manager Test")
     }
 
     SECTION("Test very long period") {
-        yarp::telemetry::experimental::BufferManager<int32_t> bm;
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
+        telemetry::BufferManager<int32_t> bm;
+        telemetry::BufferConfig bufferConfig;
 
-        yarp::telemetry::experimental::ChannelInfo var_one{ "one", {1,1} };
-        yarp::telemetry::experimental::ChannelInfo var_two{ "two", {1,1} };
+        telemetry::ChannelInfo var_one{ "one", {1,1} };
+        telemetry::ChannelInfo var_two{ "two", {1,1} };
         // First add channels that will be handling empty buffers
         REQUIRE(bm.addChannel(var_one));
         REQUIRE(bm.addChannel(var_two));
@@ -242,11 +243,11 @@ TEST_CASE("Buffer Manager Test")
     }
 
     SECTION("Test set_capacity") {
-        yarp::telemetry::experimental::BufferManager<int32_t> bm;
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
+        telemetry::BufferManager<int32_t> bm;
+        telemetry::BufferConfig bufferConfig;
 
-        yarp::telemetry::experimental::ChannelInfo var_one{ "one", {1,1} };
-        yarp::telemetry::experimental::ChannelInfo var_two{ "two", {1,1} };
+        telemetry::ChannelInfo var_one{ "one", {1,1} };
+        telemetry::ChannelInfo var_two{ "two", {1,1} };
         // First add channels that will be handling empty buffers
         REQUIRE(bm.addChannel(var_one));
         REQUIRE(bm.addChannel(var_two));
@@ -276,11 +277,11 @@ TEST_CASE("Buffer Manager Test")
     }
 
     SECTION("Test path existence") {
-        yarp::telemetry::experimental::BufferManager<int32_t> bm;
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
+        telemetry::BufferManager<int32_t> bm;
+        telemetry::BufferConfig bufferConfig;
 
-        yarp::telemetry::experimental::ChannelInfo var_one{ "one", {1,1} };
-        yarp::telemetry::experimental::ChannelInfo var_two{ "two", {1,1} };
+        telemetry::ChannelInfo var_one{ "one", {1,1} };
+        telemetry::ChannelInfo var_two{ "two", {1,1} };
         // First add channels that will be handling empty buffers
         REQUIRE(bm.addChannel(var_one));
         REQUIRE(bm.addChannel(var_two));
@@ -310,14 +311,14 @@ TEST_CASE("Buffer Manager Test")
 #if defined CATCH_CONFIG_ENABLE_BENCHMARKING
 
     SECTION("Benchmarking section scalar int") {
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
-        yarp::telemetry::experimental::ChannelInfo var_one{ "one", {1,1} };
+        telemetry::BufferConfig bufferConfig;
+        telemetry::ChannelInfo var_one{ "one", {1,1} };
         bufferConfig.channels.push_back(var_one);
         bufferConfig.filename = "buffer_manager_test_scalar_benchmark";
 
         bufferConfig.n_samples = 1000;
         BENCHMARK_ADVANCED("BufferOfInt-1000Samples-oneVariable-1x1")(Catch::Benchmark::Chronometer meter) {
-            yarp::telemetry::experimental::BufferManager<int32_t> bm;
+            telemetry::BufferManager<int32_t> bm;
             bm.configure(bufferConfig);
 
             for (int i = 0; i < bufferConfig.n_samples; i++) {
@@ -328,7 +329,7 @@ TEST_CASE("Buffer Manager Test")
         };
         bufferConfig.n_samples = 10000;
         BENCHMARK_ADVANCED("BufferOfInt-10000Samples-oneVariable-1x1")(Catch::Benchmark::Chronometer meter) {
-            yarp::telemetry::experimental::BufferManager<int32_t> bm;
+            telemetry::BufferManager<int32_t> bm;
             bm.configure(bufferConfig);
 
             for (int i = 0; i < bufferConfig.n_samples; i++) {
@@ -340,7 +341,7 @@ TEST_CASE("Buffer Manager Test")
 
         bufferConfig.n_samples = 100000;
         BENCHMARK_ADVANCED("BufferOfInt-100000Samples-oneVariable-1x1")(Catch::Benchmark::Chronometer meter) {
-            yarp::telemetry::experimental::BufferManager<int32_t> bm;
+            telemetry::BufferManager<int32_t> bm;
             bm.configure(bufferConfig);
 
             for (int i = 0; i < bufferConfig.n_samples; i++) {
@@ -353,15 +354,15 @@ TEST_CASE("Buffer Manager Test")
     }
     SECTION("Benchmarking section vector int") {
 
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
-        yarp::telemetry::experimental::ChannelInfo var_one{ "one", {3,1} };
+        telemetry::BufferConfig bufferConfig;
+        telemetry::ChannelInfo var_one{ "one", {3,1} };
         bufferConfig.channels.push_back(var_one);
         bufferConfig.filename = "buffer_manager_test_vector_benchmark";
 
 
         bufferConfig.n_samples = 1000;
         BENCHMARK_ADVANCED("BufferOfInt-1000Samples-oneVariable-3x1")(Catch::Benchmark::Chronometer meter) {
-            yarp::telemetry::experimental::BufferManager<int32_t> bm;
+            telemetry::BufferManager<int32_t> bm;
             bm.configure(bufferConfig);
 
             for (int i = 0; i < bufferConfig.n_samples; i++) {
@@ -373,7 +374,7 @@ TEST_CASE("Buffer Manager Test")
 
         bufferConfig.n_samples = 10000;
         BENCHMARK_ADVANCED("BufferOfInt-10000Samples-oneVariable-3x1")(Catch::Benchmark::Chronometer meter) {
-            yarp::telemetry::experimental::BufferManager<int32_t> bm;
+            telemetry::BufferManager<int32_t> bm;
             bm.configure(bufferConfig);
 
             for (int i = 0; i < bufferConfig.n_samples; i++) {
@@ -385,7 +386,7 @@ TEST_CASE("Buffer Manager Test")
 
         bufferConfig.n_samples = 100000;
         BENCHMARK_ADVANCED("BufferOfInt-100000Samples-oneVariable-3x1")(Catch::Benchmark::Chronometer meter) {
-            yarp::telemetry::experimental::BufferManager<int32_t> bm;
+            telemetry::BufferManager<int32_t> bm;
             bm.configure(bufferConfig);
 
             for (int i = 0; i < bufferConfig.n_samples; i++) {
@@ -400,15 +401,15 @@ TEST_CASE("Buffer Manager Test")
 
     SECTION("Benchmarking section matrix int") {
 
-        yarp::telemetry::experimental::BufferConfig bufferConfig;
-        yarp::telemetry::experimental::ChannelInfo var_one{ "one", {3,2} };
+        telemetry::BufferConfig bufferConfig;
+        telemetry::ChannelInfo var_one{ "one", {3,2} };
         bufferConfig.channels.push_back(var_one);
         bufferConfig.filename = "buffer_manager_test_matrix_benchmark";
 
 
         bufferConfig.n_samples = 1000;
         BENCHMARK_ADVANCED("BufferOfInt-1000Samples-oneVariable-3x2")(Catch::Benchmark::Chronometer meter) {
-            yarp::telemetry::experimental::BufferManager<int32_t> bm;
+            telemetry::BufferManager<int32_t> bm;
             bm.configure(bufferConfig);
 
             for (int i = 0; i < bufferConfig.n_samples; i++) {
@@ -420,7 +421,7 @@ TEST_CASE("Buffer Manager Test")
 
         bufferConfig.n_samples = 10000;
         BENCHMARK_ADVANCED("BufferOfInt-10000Samples-oneVariable-3x2")(Catch::Benchmark::Chronometer meter) {
-            yarp::telemetry::experimental::BufferManager<int32_t> bm;
+            telemetry::BufferManager<int32_t> bm;
             bm.configure(bufferConfig);
 
             for (int i = 0; i < bufferConfig.n_samples; i++) {
@@ -432,7 +433,7 @@ TEST_CASE("Buffer Manager Test")
 
         bufferConfig.n_samples = 100000;
         BENCHMARK_ADVANCED("BufferOfInt-100000Samples-oneVariable-3x2")(Catch::Benchmark::Chronometer meter) {
-            yarp::telemetry::experimental::BufferManager<int32_t> bm;
+            telemetry::BufferManager<int32_t> bm;
             bm.configure(bufferConfig);
 
             for (int i = 0; i < bufferConfig.n_samples; i++) {

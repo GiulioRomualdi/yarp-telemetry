@@ -9,7 +9,7 @@
 
 #include <yarp/os/Time.h>
 #include <yarp/os/Network.h>
-#include <yarp/telemetry/experimental/BufferManager.h>
+#include <telemetry/BufferManager.h>
 
 #include <iostream>
 #include <iomanip>
@@ -30,7 +30,7 @@ int main()
 {
     Network yarp;
 
-    yarp::telemetry::experimental::BufferConfig bufferConfig;
+    telemetry::BufferConfig bufferConfig;
 
     // we configure our API to use our periodic saving option
     bufferConfig.n_samples = n_samples;
@@ -38,13 +38,13 @@ int main()
     bufferConfig.data_threshold = threshold;
     bufferConfig.save_periodically = true;
 
-    yarp::telemetry::experimental::BufferManager<int32_t> bm(bufferConfig);
+    telemetry::BufferManager<int32_t> bm(bufferConfig);
 
     std::cout << "First example: " << std::endl;
 
     bm.setFileName("buffer_manager_test");
-    yarp::telemetry::experimental::ChannelInfo var_one{ "one", {1,1} };
-    yarp::telemetry::experimental::ChannelInfo var_two{ "two", {1,1} };
+    telemetry::ChannelInfo var_one{ "one", {1,1} };
+    telemetry::ChannelInfo var_two{ "two", {1,1} };
 
     auto ok = bm.addChannel(var_one);
     ok = ok && bm.addChannel(var_two);
@@ -66,9 +66,9 @@ int main()
 
     std::cout << "Second example: " << std::endl;
 
-    yarp::telemetry::experimental::BufferManager<int32_t> bm_m(bufferConfig);
+    telemetry::BufferManager<int32_t> bm_m(bufferConfig);
     bm_m.setFileName("buffer_manager_test_matrix");
-    std::vector<yarp::telemetry::experimental::ChannelInfo> vars{ { "one",{2,3} },
+    std::vector<telemetry::ChannelInfo> vars{ { "one",{2,3} },
                                    { "two",{3,2} } };
 
     ok = bm_m.addChannels(vars);
@@ -90,7 +90,7 @@ int main()
     bufferConfig.channels = { {"one",{4,1}}, {"two",{4,1}} };
     bufferConfig.filename = "buffer_manager_test_vector";
 
-    yarp::telemetry::experimental::BufferManager<double> bm_v(bufferConfig);
+    telemetry::BufferManager<double> bm_v(bufferConfig);
 
     for (int i = 0; i < 40; i++) {
         std::vector tmp1 = { i+1.0, i+2.0, i+3.0, i+4.0  };
